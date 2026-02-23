@@ -1,27 +1,60 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary: #0F172A;
+  --secondary: #f4f4f4;
+  --white: #ffffff;
+  --black: #000000;
+  --dark: #42414d;
+  --grey: #808080;
+  --grey-new: #b0b6c3;
+  --success: #29ae6c;
+
+  --yellow: #ffdd00;
+  --yellow-light: #f1ebc4;
+
+  --cl-blue: #0ab5ff;
+  --cl-blue-light: rgba(10, 181, 255, 0.1);
+
+  --cl-gray: #d9d9d9;
+
+  --cl-green: #2fb777;
+  --cl-green-light: rgba(47, 183, 119, 0.1);
+  --success-light: #87fac2;
+  --screen-color: #2fb777;
+  --success-border: #0a9151;
+  
+  --danger: #f45a55;
+  --danger-screen: rgba(244, 90, 85, 0.7);
+  --cl-danger-light: #fccac870;
+  --danger-light: #fccac8;
+
+  --warning: #db7d27;
+  --warning-light: #fae4d0;
+  --border: #e4e5e9;
+
+  --modal-backdrop-bg: rgba(52, 64, 84, 0.3);
+  --borderRadius: 5px;
+  --letter-spacing: 1px;
+  --fs32: 32px;
+  --fs26: 26px;
+  --fs24: 24px;
+  --fs20: 20px;
+  --fs18: 18px;
+  --fs16: 16px;
+  --fs15: 15px;
+  --fs14: 14px;
+  --fs13: 13px;
+  --fs12: 12px;
+  --fs11: 11px;
+  --fs10: 10px;
+  --fs9: 9px;
 }
 
 html,
 body {
-  max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: roboto, sans-serif;
+  height: 100%;
 }
 
 * {
@@ -30,13 +63,72 @@ body {
   margin: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(204, 25, 25, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(248, 241, 241, 0);
+  border-right: 7px solid rgba(0, 0, 0, 0.01);
+}
+
+.fs-9 {
+  font-size: var(--fs9);
+}
+
+.fs-10 {
+  font-size: var(--fs10);
+}
+
+.fs-11 {
+  font-size: var(--fs11);
+}
+
+.fs-12 {
+  font-size: var(--fs12);
+}
+
+.fs-13 {
+  font-size: var(--fs13);
+}
+
+.fs-14 {
+  font-size: var(--fs14);
+}
+
+.fs-15 {
+  font-size: var(--fs15);
+}
+
+.fs-16 {
+  font-size: var(--fs16);
+}
+
+.fs-18 {
+  font-size: var(--fs18);
+}
+
+.fs-20 {
+  font-size: var(--fs20);
+}
+
+.fs-26 {
+  font-size: var(--fs26);
+}
+
+.fs-24 {
+  font-size: var(--fs24);
+}
+
+.letter-spacing {
+  letter-spacing: var(--letter-spacing);
 }
