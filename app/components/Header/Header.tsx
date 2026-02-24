@@ -11,6 +11,8 @@ import { RiMenu3Fill } from "react-icons/ri";
 import logo from "../../../public/assests/Logo 3  1.png";
 import blackLogo from "../../../public/assests/Logoblack.png";
 import "./Header.css";
+import ReusableButton from '../Buttons/ReusableButton/ReusableButton';
+import BorderButton from '../Buttons/BorderButton';
 
 const menu = [
   {
@@ -239,16 +241,11 @@ const Header = () => {
               </ul>
             </nav>
             <div>
-              <a
-                href="#"
-                className={`fw-light fs-14`}
-                style={{
-                  textDecoration: "none",
-                  color: scrolled ? "#000" : "#fff"
-                }}
-              >
-                Contact <span><GoArrowUpRight size={26} /></span>
-              </a>
+              <BorderButton
+                text="Contact"
+                style={scrolled ? { color: "#000" } : { color: "#fff" }}
+                sufixIconChildren={<GoArrowUpRight size={26} />}
+              />
             </div>
           </>
         )}

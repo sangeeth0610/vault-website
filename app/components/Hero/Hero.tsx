@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { GoArrowUpRight } from "react-icons/go";
-import { HiArrowDownRight } from "react-icons/hi2";
+import { ImArrowDownRight2 } from "react-icons/im";
 import homeBg from "../../../public/assests/home-img.jpg";
 import vaultPin from "../../../public/assests/home-vector.png";
-import ReusableButton from '../ReusableButton/ReusableButton';
+import AnimatedFillButton from "../Buttons/AnimatedFillButton";
+import BorderButton from "../Buttons/BorderButton";
 
 
 const Hero = () => {
@@ -19,22 +20,13 @@ const Hero = () => {
           for responsible growth.
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
-          <ReusableButton
-            text="DISCOVER OUR SERVICES"
-            variant="white"
-            className="bg-white text-black"
-            sufixIconChildren={
-              <HiArrowDownRight size={18} color="#5065FF" />
-            }
-          />
-          <ReusableButton
+          <AnimatedFillButton text="DISCOVER OUR SERVICES" sufixIconChildren={<ImArrowDownRight2 color="#5065FF" size={18} />} />
+
+          <BorderButton
             text="CONTACT US TODAY"
-            variant="outline"
-            className="bg-transparent text-white border-0"
-            sufixIconChildren={
-              <GoArrowUpRight size={18} color="#fff" />
-            }
+            sufixIconChildren={<GoArrowUpRight size={18} color="white" />}
           />
+          {/* <FlickButton text="CONTACT US TODAY" sufixIconChildren={<GoArrowUpRight size={18} />} /> */}
         </div>
       </div>
       <div className="vault-pin">
