@@ -155,7 +155,6 @@
   width: 0;
   height: 1px;
   position: absolute;
-  background: var(--white);
   transition: all 0.4s ease;
 }
 
@@ -166,9 +165,30 @@
   width: 1px;
   height: 0;
   position: absolute;
-  background: var(--white);
   transition: all 0.4s ease;
 }
+
+.white-border span::before,
+.white-border span::after {
+  background: var(--white);
+}
+
+.white-border::before,
+.white-border::after {
+    background: var(--white);
+}
+
+
+.black-border span::before,
+.black-border span::after {
+  background: var(--dark);
+}
+
+.black-border::before,
+.black-border::after {
+    background: var(--dark);
+}
+
 
 /* ===== Button 4 Specific Positioning ===== */
 
