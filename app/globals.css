@@ -52,6 +52,10 @@
   --fs9: 9px;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 html,
 body {
   overflow-x: hidden;
@@ -153,6 +157,10 @@ a, button, input, textarea {
 
 .border-bottom {
     border-bottom:1px solid #FFFFFF29 !important;
+}
+.border-end{
+      border-right:1px solid #FFFFFF29 !important;
+
 }
 
 .text-secondary {

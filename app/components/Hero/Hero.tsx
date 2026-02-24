@@ -74,7 +74,6 @@ const Hero = () => {
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
           <AnimatedFillButton text="DISCOVER OUR SERVICES" sufixIconChildren={<ImArrowDownRight2 color="var(--primary-blue)" size={18} />} />
-
           <BorderButton
             text="CONTACT US TODAY"
             sufixIconChildren={<GoArrowUpRight size={18} color="white" />}
