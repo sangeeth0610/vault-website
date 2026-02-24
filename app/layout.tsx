@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Libre_Baskerville, Roboto } from "next/font/google"
 import { DeviceProvider } from "./context/DeviceProvider"
+import { ScrollProvider } from './context/ScrollProvider'
 import "./globals.css"
 
 const geistSans = Geist({
@@ -47,7 +48,7 @@ export default function RootLayout({
         ].join(" ")}
       >
         <DeviceProvider>
-          {children}
+          <ScrollProvider>{children}</ScrollProvider>
         </DeviceProvider>
       </body>
     </html>

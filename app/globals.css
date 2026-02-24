@@ -54,7 +54,7 @@ html,
 body {
   overflow-x: hidden;
   font-family: roboto, sans-serif;
-  height: 100%;
+  /* height: 100%; */
 }
 
 * {
@@ -75,7 +75,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--primary);
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(248, 241, 241, 0);
   border-right: 7px solid rgba(0, 0, 0, 0.01);
@@ -131,4 +131,35 @@ body {
 
 .letter-spacing {
   letter-spacing: var(--letter-spacing);
+}
+
+.img-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.img-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-position: left;
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.65) 0%,
+    rgba(15, 23, 42, 0.60) 100%
+  );
+  z-index: 1;
 }
