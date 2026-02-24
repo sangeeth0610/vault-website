@@ -1,10 +1,9 @@
-import React from 'react'
-import './OurStory.css'
-import { Col, Row } from 'react-bootstrap'
-import Image from 'next/image'
+import Image from 'next/image';
+import { Col, Row } from 'react-bootstrap';
 import homeBg from "../../../public/assests/home-img.jpg";
-import world from "../../../public/assests/World.png";
 import window from "../../../public/assests/window.png";
+import world from "../../../public/assests/World.png";
+import './OurStory.css';
 
 
 
@@ -12,7 +11,7 @@ import window from "../../../public/assests/window.png";
 const OurStory = () => {
   return (
     <div className=" pt-4  pt-lg-5 position-relative d-flex flex-column gap-4 our-story ">
-      <div className=' px-4 d-flex flex-column gap-4'>
+      <div className=' px-4 py-4 d-flex flex-column gap-4'>
         <div className=' primary-text text-uppercase letter-spacing fw-semibold fs-15'>Our Story</div>
         <div className='font-libre fs-42 pb-4 text-dark'>
           Operational Excellence is our Edge

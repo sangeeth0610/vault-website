@@ -159,6 +159,10 @@ a, button, input, textarea {
     opacity: .6 !important;
     color: var(--secondary) !important;
 }
+.bg-secondary {
+    opacity: 1;
+    background-color:var(--secondary) !important;
+}
 
 .img-background {
   position: absolute;
