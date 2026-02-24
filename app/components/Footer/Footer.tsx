@@ -70,7 +70,7 @@ const Footer = () => {
         <Image src={homeBg} alt="homeBg" />
         <div className="img-overlay-footer"></div>
       </div>
-      <div className="footer-section px-4 flex-grow-1 d-flex flex-column flex-lg-row align-items-start justify-content-between gap-4 pt-5 mt-5">
+      <div className="footer-section px-4 flex-grow-1 d-flex flex-column flex-lg-row align-items-start justify-content-between gap-4 pt-5 mt-lg-5">
         <div className="mb-4 mb-lg-0" style={{ minWidth: 180 }}>
           <Image src={logo} alt="Vault Logo" />
           <div className="fs-14 mt-3 text-white">Multi Family Office</div>
