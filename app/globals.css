@@ -155,6 +155,11 @@ a, button, input, textarea {
     border-bottom:1px solid #FFFFFF29 !important;
 }
 
+.text-secondary {
+    opacity: .6 !important;
+    color: var(--secondary) !important;
+}
+
 .img-background {
   position: absolute;
   top: 0;

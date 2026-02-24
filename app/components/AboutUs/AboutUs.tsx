@@ -6,7 +6,7 @@ import { GoArrowUpRight } from 'react-icons/go';
 
 const AboutUs = () => {
   return (
-    <div className="px-4 py-4 position-relative d-flex flex-column justify-content-center gap-4 about-us " style={{ minHeight: "610px" }}>
+    <div className="px-4 py-4 py-lg-5 position-relative d-flex flex-column justify-content-center gap-4 about-us " style={{ minHeight: "610px" }}>
       <div className=' primary-text text-uppercase letter-spacing fw-semibold fs-15'>About Us</div>
       <div className=' font-libre fs-42 pb-4 border-bottom text-white '>
         Vault MFO
