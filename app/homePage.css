@@ -13,13 +13,53 @@
   font-family: var(--font-libre-baskerville), serif;
 }
 
+
 .vault-pin {
+  position: absolute;
+  right: 80px;
+  top: 20%;
+  transform: translateY(-50%);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* .vault-pin {
+  position: absolute;
+  right: 80px;
+  top: 20%;
+  transform: translateY(-50%);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+} */
+
+/* .vault-pin {
   position: absolute;
   right: 80px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 11;
+} */
+
+/* .vault-pin {
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 11;
+  animation: vault-pin-scale 1.2s infinite ease-in-out;
 }
+
+@keyframes vault-pin-scale {
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.2);
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+} */
 
 @media (max-width: 1024px) {
   .vault-pin {

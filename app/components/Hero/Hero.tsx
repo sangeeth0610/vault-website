@@ -1,4 +1,7 @@
+'use client'
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 import { ImArrowDownRight2 } from "react-icons/im";
 import homeBg from "../../../public/assests/home-img.jpg";
@@ -8,6 +11,56 @@ import BorderButton from "../Buttons/BorderButton";
 
 
 const Hero = () => {
+
+  const pinRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pinRef.current) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    const movementStrength = 30; // lower = more luxury (subtle)
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+
+      const x = (e.clientX / innerWidth - 0.5) * 2;
+      const y = (e.clientY / innerHeight - 0.5) * 2;
+
+      mouseX = x * movementStrength;
+      mouseY = y * movementStrength;
+    };
+
+    const animate = () => {
+      // Smooth inertia (luxury feel)
+      currentX += (mouseX - currentX) * 0.06;
+      currentY += (mouseY - currentY) * 0.06;
+
+      // Small floating motion
+      const float = Math.sin(Date.now() * 0.0015) * 8;
+
+      if (pinRef.current) {
+        pinRef.current.style.transform = `
+          translate3d(${currentX}px, ${currentY + float}px, 0)
+        `;
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    animate();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+
   return (
     <section className="hero-wrapper position-relative" style={{ height: "100vh" }}>
       <div className="img-background">
@@ -20,16 +73,15 @@ const Hero = () => {
           for responsible growth.
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
-          <AnimatedFillButton text="DISCOVER OUR SERVICES" sufixIconChildren={<ImArrowDownRight2 color="#5065FF" size={18} />} />
+          <AnimatedFillButton text="DISCOVER OUR SERVICES" sufixIconChildren={<ImArrowDownRight2 color="var(--primary-blue)" size={18} />} />
 
           <BorderButton
             text="CONTACT US TODAY"
             sufixIconChildren={<GoArrowUpRight size={18} color="white" />}
           />
-          {/* <FlickButton text="CONTACT US TODAY" sufixIconChildren={<GoArrowUpRight size={18} />} /> */}
         </div>
       </div>
-      <div className="vault-pin">
+      <div className="vault-pin" ref={pinRef}>
         <Image src={vaultPin} alt="vaultPin" />
       </div>
     </section>
