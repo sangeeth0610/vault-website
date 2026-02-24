@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Libre_Baskerville, Roboto } from "next/font/google"
+import CustomCursor from './components/CustomCursor/CustomCursor'
 import { DeviceProvider } from "./context/DeviceProvider"
 import { ScrollProvider } from './context/ScrollProvider'
 import "./globals.css"
@@ -48,7 +49,10 @@ export default function RootLayout({
         ].join(" ")}
       >
         <DeviceProvider>
-          <ScrollProvider>{children}</ScrollProvider>
+          <ScrollProvider>
+            <CustomCursor />
+            {children}
+          </ScrollProvider>
         </DeviceProvider>
       </body>
     </html>

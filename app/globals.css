@@ -36,6 +36,7 @@
   --modal-backdrop-bg: rgba(52, 64, 84, 0.3);
   --borderRadius: 5px;
   --letter-spacing: 1px;
+  --fs42: 42px;
   --fs32: 32px;
   --fs26: 26px;
   --fs24: 24px;
@@ -55,6 +56,7 @@ html,
 body {
   overflow-x: hidden;
   font-family: roboto, sans-serif;
+  cursor: none;
   /* height: 100%; */
 }
 
@@ -62,6 +64,10 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+a, button, input, textarea {
+  cursor: none;
 }
 
 
@@ -129,9 +135,24 @@ body {
 .fs-24 {
   font-size: var(--fs24);
 }
+.fs-42 {
+  font-size: var(--fs42);
+}
 
 .letter-spacing {
   letter-spacing: var(--letter-spacing);
+}
+
+.primary-text{
+  color: var(--primary-blue);
+}
+
+.font-libre{
+  font-family:  var(--font-libre-baskerville);
+}
+
+.border-bottom {
+    border-bottom:1px solid #FFFFFF29 !important;
 }
 
 .img-background {
