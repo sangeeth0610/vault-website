@@ -1,14 +1,19 @@
-import Image from 'next/image';
-import { Col, Row } from 'react-bootstrap';
-import { GoArrowUpRight } from 'react-icons/go';
-import expand from "../../../public/assests/expand.png";
-import layers from "../../../public/assests/layers.png";
-import light from "../../../public/assests/light-bulb.png";
-import network from "../../../public/assests/network.png";
-import AnimatedFillButton from '../Buttons/AnimatedFillButton';
-import './PartnerWithUs.css';
+'use client'
 
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { GoArrowUpRight } from 'react-icons/go'
 
+import expand from "../../../public/assests/expand.png"
+import layers from "../../../public/assests/layers.png"
+import light from "../../../public/assests/light-bulb.png"
+import network from "../../../public/assests/network.png"
+import AnimatedFillButton from '../Buttons/AnimatedFillButton'
+import './PartnerWithUs.css'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const partnerData = [
   {
@@ -31,55 +36,112 @@ const partnerData = [
     title: "Expand Reach",
     description: "Expand your reach to deal flow.",
   },
-];
+]
 
-const PartnerWithUs = () => {
+export default function PartnerWithUs() {
+  const leftRef = useRef<HTMLDivElement>(null)
+  const sectionsRef = useRef<HTMLDivElement[]>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+  console.info(activeIndex)
+
+  useLayoutEffect(() => {
+    if (!leftRef.current) return;
+
+    const ctx = gsap.context(() => {
+
+      ScrollTrigger.matchMedia({
+
+        // 🔵 Desktop Only
+        "(min-width: 1024px)": function () {
+
+          partnerData.forEach((_, i) => {
+            ScrollTrigger.create({
+              trigger: sectionsRef.current[i],
+              start: "top center",
+              end: "center center",
+              onEnter: () => setActiveIndex(i),
+              onEnterBack: () => setActiveIndex(i),
+            })
+          })
+
+          ScrollTrigger.create({
+            trigger: ".partner-with-us",
+            start: "top top",
+            end: () => `+=${sectionsRef.current.length * window.innerHeight}`,
+            pin: leftRef.current,
+            pinSpacing: false,
+          })
+
+        },
+
+        // 🔵 Tablet & Mobile
+        "(max-width: 1023px)": function () {
+
+        }
+
+      });
+
+    });
+
+    return () => ctx.revert();
+
+  }, []);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="partner-with-us">
-      <Row className="g-0 partner-wrapper">
-        <Col
-          md={6}
-          className="partner-left"
-        >
-          <div className="w-100 px-4 pt-5 d-flex flex-column gap-4 py-4">
-            <div className="primary-text text-uppercase letter-spacing fw-semibold fs-15 pb-2 pt-1">
+      <div className="partner-layout flex-wrap">
+        <div className="partner-left">
+          <div ref={leftRef} className="partner-left-inner px-4 gap-4">
+            <div className="primary-text text-uppercase letter-spacing fw-semibold fs-15">
               Partner With Us
             </div>
-            <div className="font-libre fs-42 pb-4 text-white">
-              Become our <br /> Operating Partner
-            </div>
+
+            <h2 className="font-libre fs-42 text-white">
+              Become our <br />Operating Partner
+            </h2>
+
             <AnimatedFillButton
               text="CONTACT US"
-              sufixIconChildren={<GoArrowUpRight color="var(--primary-blue)" size={20} />}
+              sufixIconChildren={<GoArrowUpRight size={20} />}
             />
           </div>
-        </Col>
+        </div>
 
-        <Col
-          md={6}
-          className="partner-right"
-        >
+        <div className="partner-right">
           {partnerData.map((item, i) => (
             <div
               key={i}
-              className="d-flex justify-content-center gap-3 p-4 partner-with-us-content flex-column"
-              style={{ minHeight: "420px" }}
+              ref={(el) => {
+                if (el) sectionsRef.current[i] = el
+              }}
+              className="partner-with-us-content d-flex flex-column gap-3"
             >
               <Image src={item.img} alt={item.title} />
-              <div className="d-flex flex-column justify-content-center">
-                <div className="font-libre fs-42 text-white">
+              <div>
+                <h3 className="font-libre fs-42 text-white">
                   {item.title}
-                </div>
-                <div className="text-secondary fs-15 fw-lighter"  >
+                </h3>
+                <p className="text-secondary fs-15 fw-lighter">
                   {item.description}
-                </div>
+                </p>
               </div>
             </div>
           ))}
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
-  );
-};
-
-export default PartnerWithUs;
+  )
+}
