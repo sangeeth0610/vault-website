@@ -67,7 +67,14 @@ const Hero = () => {
         <Image src={homeBg} alt="homeBg" />
         <div className="img-overlay"></div>
       </div>
+
       <div className="hero-section h-100 d-flex justify-content-center gap-5 flex-column px-4">
+        <div className="vault-wave-wrapper">
+          <div className="vault-wave-text">
+            <h2 className=" text-capitalize">#Vault</h2>
+            <h2 className=" text-capitalize">#Vault</h2>
+          </div>
+        </div>
         <div className=" text-white hero-text">
           Multi-family office <br />
           for responsible growth.
@@ -83,6 +90,13 @@ const Hero = () => {
       <div className="vault-pin" ref={pinRef}>
         <Image src={vaultPin} alt="vaultPin" />
       </div>
+      <div className="vault-wave-wrapper">
+        <div className="vault-wave-text">
+          <h2>Vault</h2>
+          <h2>Vault</h2>
+        </div>
+      </div>
+
     </section>
   )
 }
