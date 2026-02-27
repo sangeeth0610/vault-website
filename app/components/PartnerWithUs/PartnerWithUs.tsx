@@ -58,18 +58,25 @@ export default function PartnerWithUs() {
             ScrollTrigger.create({
               trigger: sectionsRef.current[i],
               start: "top center",
-              end: "center center",
               onEnter: () => setActiveIndex(i),
               onEnterBack: () => setActiveIndex(i),
             })
           })
 
           ScrollTrigger.create({
-            trigger: ".partner-with-us",
+            trigger: leftRef.current,
             start: "top top",
-            end: () => `+=${sectionsRef.current.length * window.innerHeight}`,
-            pin: leftRef.current,
-            pinSpacing: false,
+            end: () => {
+              const right = document.querySelector(".partner-right")
+              if (!right) return "+=0"
+
+              const rightHeight = right.scrollHeight
+              const leftHeight = leftRef.current!.offsetHeight
+
+              return `+=${rightHeight - leftHeight}`
+            },
+            pin: true,
+            pinSpacing: true,
           })
 
         },
@@ -87,18 +94,6 @@ export default function PartnerWithUs() {
 
   }, []);
 
-
-  useEffect(() => {
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <div className="partner-with-us">
@@ -134,7 +129,7 @@ export default function PartnerWithUs() {
                 <h3 className="font-libre fs-42 text-white">
                   {item.title}
                 </h3>
-                <p className="text-secondary fs-15 fw-lighter">
+                <p className="text-secondary fs-15 fw-lighter mb-0">
                   {item.description}
                 </p>
               </div>
