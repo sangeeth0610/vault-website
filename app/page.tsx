@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import OurStory from "./components/OurStory/OurStory";
 import PartnerWithUs from "./components/PartnerWithUs/PartnerWithUs";
+import WantToKnowMore from "./components/WantToKnowMore/WantToKnowMore";
 import WhatWeDo from "./components/WhatWeDo/WhatWeDo";
 import "./homePage.css";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <OurStory />
       <WhatWeDo />
       <PartnerWithUs />
+      <WantToKnowMore />
       <Footer />
     </main>
   );

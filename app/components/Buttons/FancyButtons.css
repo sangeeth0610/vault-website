@@ -52,11 +52,11 @@
   color: var(--primary-blue);
   background: var(--white);
   border: 1px solid var(--white);
-  animation: anim-moema-1 0.3s forwards;
+  animation: anim-moema-1 0.55s forwards; /* made slower from 0.3s to 0.55s */
 }
 
 .flick-button:hover::before {
-  animation: anim-moema-2 0.3s 0.3s forwards;
+  animation: anim-moema-2 0.55s 0.30s forwards; /* made slower from 0.3s 0.3s to 0.55s 0.30s */
 }
 
 @keyframes anim-moema-1 {
