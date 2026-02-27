@@ -202,3 +202,7 @@ a, button, input, textarea {
   );
   z-index: 1;
 }
+
+.reveal-section {
+  will-change: transform, opacity;
+}

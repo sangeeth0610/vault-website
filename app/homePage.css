@@ -134,3 +134,43 @@
     );
   }
 }
+
+.vault-marquee {
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  background: transparent;
+  position: absolute;
+  bottom: 0px;
+  z-index: 1111;
+}
+
+.vault-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: vaultScroll 33s linear infinite;
+}
+
+.vault-track span {
+  font-size: clamp(2rem, 6vw, 80px);
+  font-family: var(--font-roboto), serif;
+  font-weight: 600;
+  margin-right: 60px;
+  color: transparent;
+  -webkit-text-stroke: 1px #ffffff;
+  opacity: .2;
+}
+
+/* @keyframes vaultScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+} */
+
+@keyframes vaultScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

@@ -67,14 +67,31 @@ const Hero = () => {
         <Image src={homeBg} alt="homeBg" />
         <div className="img-overlay"></div>
       </div>
+      {/* <div className="vault-marquee">
+        <div className="vault-track">
+          {Array(20).fill("#vault ").map((item, i) => (
+            <span key={i}>{item}</span>
+          ))}
+        </div>
+      </div> */}
+      <div className="vault-marquee">
+        <div className="vault-track">
+          {[...Array(20)].map((_, i) => (
+            <span key={`first-${i}`}>#vault </span>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <span key={`second-${i}`}>#vault </span>
+          ))}
+        </div>
+      </div>
 
       <div className="hero-section h-100 d-flex justify-content-center gap-5 flex-column px-4">
-        <div className="vault-wave-wrapper">
+        {/* <div className="vault-wave-wrapper">
           <div className="vault-wave-text">
             <h2 className=" text-capitalize">#Vault</h2>
             <h2 className=" text-capitalize">#Vault</h2>
           </div>
-        </div>
+        </div> */}
         <div className=" text-white hero-text">
           Multi-family office <br />
           for responsible growth.
