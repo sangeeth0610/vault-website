@@ -21,7 +21,7 @@ const menu = [
   },
   {
     label: "About Us",
-    href: "#"
+    href: "aboutus"
   },
   {
     label: "What We Do",
