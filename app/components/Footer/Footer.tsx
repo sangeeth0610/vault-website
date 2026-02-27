@@ -10,7 +10,7 @@ import "./Footer.css";
 const siteMapMenu = [
   {
     label: "Home",
-    href: "#"
+    href: "/"
   },
   {
     label: "About Us",
@@ -42,7 +42,7 @@ const siteMapMenu = [
   },
   {
     label: "Events",
-    href: "#"
+    href: "/event"
   },
   {
     label: "Career",

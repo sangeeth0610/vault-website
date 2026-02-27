@@ -17,7 +17,7 @@ import BorderButton from '../Buttons/BorderButton';
 const menu = [
   {
     label: "Home",
-    href: "#"
+    href: "/"
   },
   {
     label: "About Us",
@@ -49,7 +49,7 @@ const menu = [
   },
   {
     label: "Events",
-    href: "#"
+    href: "/event"
   },
   {
     label: "Career",
