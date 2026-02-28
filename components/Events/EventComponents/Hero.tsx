@@ -1,13 +1,11 @@
-'use client'
+'use client';
 
-import Image from "next/image";
-import homeBg from "../../../public/assests/event.jpg";
-
+import homeBg from '@/public/assests/event.jpg';
+import Image from 'next/image';
 
 const Hero = () => {
-
   return (
-    <section className="hero-wrapper position-relative" style={{ height: "100vh" }}>
+    <section className="hero-wrapper position-relative" style={{ height: '100vh' }}>
       <div className="img-background">
         <Image src={homeBg} alt="homeBg" />
         <div className="img-overlay"></div>
@@ -25,12 +23,12 @@ const Hero = () => {
 
       <div className="hero-section h-100 d-flex justify-content-center gap-5 flex-column px-4">
         <div className=" text-white hero-text">
-          Panel Discussion: HPC <br />Investment Landscape
+          Panel Discussion: HPC <br />
+          Investment Landscape
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

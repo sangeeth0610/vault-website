@@ -20,7 +20,7 @@ const menu = [
   },
   {
     label: 'About Us',
-    href: 'aboutus',
+    href: '/aboutus',
   },
   {
     label: 'What We Do',

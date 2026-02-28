@@ -1,20 +1,18 @@
-import Hero from '@/components/AboutUs/AboutUsComponents/Hero';
+import ArticleDetails from '@/components/Events/EventComponents/ArticleDetails/ArticleDetails';
+import Hero from '@/components/Events/EventComponents/Hero';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
-import Details from '../../components/AboutUs/AboutUsComponents/Details';
 import '../homePage.css';
 
-const AboutUsPage = () => {
+export default function EventPage() {
   return (
     <main className="home-page position-relative">
       <Header />
       <Hero />
-      <Details />
+      <ArticleDetails />
       <WantToKnowMore />
       <Footer />
     </main>
   );
-};
-
-export default AboutUsPage;
+}
