@@ -1,17 +1,15 @@
-'use client'
+'use client';
 
-import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { GoArrowUpRight } from "react-icons/go";
-import { ImArrowDownRight2 } from "react-icons/im";
-import homeBg from "../../../public/assests/home-img.jpg";
-import vaultPin from "../../../public/assests/home-vector.png";
-import AnimatedFillButton from "../Buttons/AnimatedFillButton";
-import BorderButton from "../Buttons/BorderButton";
-
+import homeBg from '@/public/assests/home-img.jpg';
+import vaultPin from '@/public/assests/home-vector.png';
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import { GoArrowUpRight } from 'react-icons/go';
+import { ImArrowDownRight2 } from 'react-icons/im';
+import AnimatedFillButton from '../Buttons/AnimatedFillButton';
+import BorderButton from '../Buttons/BorderButton';
 
 const Hero = () => {
-
   const pinRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,17 +50,16 @@ const Hero = () => {
       requestAnimationFrame(animate);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
     animate();
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
-
   return (
-    <section className="hero-wrapper position-relative" style={{ height: "100vh" }}>
+    <section className="hero-wrapper position-relative" style={{ height: '100vh' }}>
       <div className="img-background">
         <Image src={homeBg} alt="homeBg" />
         <div className="img-overlay"></div>
@@ -97,7 +94,10 @@ const Hero = () => {
           for responsible growth.
         </div>
         <div className="d-flex align-items-center gap-3 flex-wrap">
-          <AnimatedFillButton text="DISCOVER OUR SERVICES" sufixIconChildren={<ImArrowDownRight2 color="var(--primary-blue)" size={18} />} />
+          <AnimatedFillButton
+            text="DISCOVER OUR SERVICES"
+            sufixIconChildren={<ImArrowDownRight2 color="var(--primary-blue)" size={18} />}
+          />
           <BorderButton
             text="CONTACT US TODAY"
             sufixIconChildren={<GoArrowUpRight size={18} color="white" />}
@@ -113,9 +113,8 @@ const Hero = () => {
           <h2>Vault</h2>
         </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
