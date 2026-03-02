@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useRef, useCallback } from 'react'
-import { GoArrowLeft, GoArrowRight, GoArrowUpRight } from 'react-icons/go'
-import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
+import useEmblaCarousel from "embla-carousel-react"
+import { useCallback, useRef } from 'react'
+import { GoArrowLeft, GoArrowRight, GoArrowUpRight } from 'react-icons/go'
 import ReusableButton from '../Buttons/ReusableButton/ReusableButton'
 
 // Added real leader images for demonstration purposes
@@ -77,7 +77,7 @@ const VaultPeople = () => {
   }, [emblaApi]);
 
   return (
-    <div className=" pt-4 pt-lg-5 position-relative d-flex flex-column gap-4 primary-bg">
+    <div className=" py-4 pt-lg-5 position-relative d-flex flex-column gap-4 primary-bg">
       <div className="px-4 d-flex flex-column gap-4 py-0 pt-lg-4">
         <div className="primary-text text-uppercase letter-spacing fw-semibold fs-15">
           VAULT PEOPLE

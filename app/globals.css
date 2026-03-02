@@ -229,8 +229,13 @@ a, button, input, textarea {
   gap: 24px;
 }
 
-.embla__slide {
+/* .embla__slide {
   flex: 0 0 350px;
+} */
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }
 
 .carousel-card img {

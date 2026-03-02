@@ -10,6 +10,7 @@ import WhatWeDo from '@/components/WhatWeDo/WhatWeDo';
 import './homePage.css';
 import FoodForThought from '@/components/FoodForThought/FoodForThought';
 import VaultPeople from '@/components/VaultPeople/VaultPeople';
+import CeoAnnualLetters from '@/components/CeoAnnualLetters/CeoAnnualLetters';
 export default function Home() {
   return (
     <main className="home-page position-relative">
@@ -20,6 +21,7 @@ export default function Home() {
       <WhatWeDo />
       <Events />
       <VaultPeople />
+      <CeoAnnualLetters />
       <FoodForThought />
       <PartnerWithUs />
       <WantToKnowMore />
