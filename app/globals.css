@@ -150,6 +150,9 @@ a, button, input, textarea {
 .primary-text{
   color: var(--primary-blue);
 }
+.primary-bg{
+  background-color: var(--primary);
+}
 
 .font-libre{
   font-family:  var(--font-libre-baskerville);
@@ -272,7 +275,7 @@ a, button, input, textarea {
 }
 
 .carousel-image {
-  transition: transform 0.25s ease;
+  transition: transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .carousel-image-wrap:hover .carousel-image {
