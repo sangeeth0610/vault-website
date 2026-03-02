@@ -1,6 +1,6 @@
 'use client';
 
-import homeBg from '@/public/assests/event.jpg';
+import homeBg from '@/public/assests/eventbg.jpg';
 import Image from 'next/image';
 
 const Hero = () => {
@@ -23,8 +23,7 @@ const Hero = () => {
 
       <div className="hero-section h-100 d-flex justify-content-center gap-5 flex-column px-4">
         <div className=" text-white hero-text">
-          Panel Discussion: HPC <br />
-          Investment Landscape
+          Events
         </div>
       </div>
     </section>
