@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import Autoplay from "embla-carousel-autoplay"
@@ -6,52 +7,22 @@ import { useCallback, useRef } from 'react'
 import { GoArrowLeft, GoArrowRight, GoArrowUpRight } from 'react-icons/go'
 import ReusableButton from '../Buttons/ReusableButton/ReusableButton'
 
-// Added real leader images for demonstration purposes
-const peopleData = [
-  {
-    name: "Elon Musk",
-    position: "CEO, Tesla/SpaceX",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-  },
-  {
-    name: "Jane Goodall",
-    position: "Founder, Jane Goodall Institute",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/32/Jane_Goodall_Washington_University_2018.jpg"
-  },
-  {
-    name: "Sundar Pichai",
-    position: "CEO, Google/Alphabet",
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Sundar_pichai.png"
-  },
-  {
-    name: "Satya Nadella",
-    position: "CEO, Microsoft",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/50/Satya_Nadella_2017.jpg"
-  },
-  {
-    name: "Elon Musk",
-    position: "CEO, Tesla/SpaceX",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-  },
-  {
-    name: "Elon Musk",
-    position: "CEO, Tesla/SpaceX",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-  },
-  {
-    name: "Elon Musk",
-    position: "CEO, Tesla/SpaceX",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-  }, {
-    name: "Elon Musk",
-    position: "CEO, Tesla/SpaceX",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg"
-  }
+export interface TeamCarouselItem {
+  id: string;
+  name: string;
+  image: string;
+  designation?: string;
+}
 
-
+const peopleDataFallback: TeamCarouselItem[] = [
+  { id: '1', name: 'Elon Musk', designation: 'CEO, Tesla/SpaceX', image: 'https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg' },
+  { id: '2', name: 'Jane Goodall', designation: 'Founder, Jane Goodall Institute', image: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Jane_Goodall_Washington_University_2018.jpg' },
+  { id: '3', name: 'Sundar Pichai', designation: 'CEO, Google/Alphabet', image: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Sundar_pichai.png' },
+  { id: '4', name: 'Satya Nadella', designation: 'CEO, Microsoft', image: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Satya_Nadella_2017.jpg' },
 ]
 
-const VaultPeople = () => {
+const VaultPeople = ({ teams }: { teams?: TeamCarouselItem[] }) => {
+  const peopleData = teams && teams.length > 0 ? teams : peopleDataFallback;
   const autoplay = useRef(
     Autoplay({
       delay: 10000,
@@ -124,7 +95,7 @@ const VaultPeople = () => {
         <div className="embla w-100" ref={emblaRef}>
           <div className="embla__container d-flex flex-row gap-4">
             {peopleData.map((person, index) => (
-              <div className="embla__slide" key={index} style={{ minWidth: 340, maxWidth: 400, flex: "0 0 340px" }}>
+              <div className="embla__slide" key={person.id || index} style={{ minWidth: 340, maxWidth: 400, flex: "0 0 340px" }}>
                 <div className="card event-carousel-card position-relative d-flex flex-column overflow-hidden h-100 border-0 bg-transparent" style={{ background: "transparent", boxShadow: "none" }}>
                   <div
                     className="carousel-image-wrap w-100 position-relative overflow-hidden primary-bg d-flex align-items-end"
@@ -144,7 +115,7 @@ const VaultPeople = () => {
                   </div>
                   <div className="pt-3 pb-2 px-2" style={{ background: "transparent" }}>
                     <div className="fs-13 fw-medium text-secondary">
-                      {person.position}
+                      {person.designation}
                     </div>
                     <div className="fs-16 fw-medium text-white">
                       {person.name}

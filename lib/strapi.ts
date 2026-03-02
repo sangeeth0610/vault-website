@@ -34,6 +34,31 @@ export function getStrapiMediaUrl(url: string): string {
   return `${STRAPI_URL}${url}`;
 }
 
+// --- Rich text (Strapi 5 richtext blocks) ---
+export type StrapiRichTextBlock = {
+  type: string;
+  children?: Array<{ type: string; text?: string }>;
+};
+
+/** Extract array of paragraph strings from Strapi richtext blocks for display. */
+export function strapiRichTextToParagraphs(blocks: StrapiRichTextBlock[] | null | undefined): string[] {
+  if (!blocks || !Array.isArray(blocks)) return [];
+  return blocks
+    .filter((b) => b.type === 'paragraph' && b.children?.length)
+    .map((b) =>
+      (b.children ?? [])
+        .map((c) => (typeof c.text === 'string' ? c.text : ''))
+        .join('')
+    )
+    .filter(Boolean);
+}
+
+/** Get plain text from Strapi richtext (first paragraph or concatenated). */
+export function strapiRichTextToPlainText(blocks: StrapiRichTextBlock[] | null | undefined): string {
+  const paragraphs = strapiRichTextToParagraphs(blocks);
+  return paragraphs.join('\n\n') || '';
+}
+
 // --- About (single type) ---
 export interface AboutDetailItem {
   id?: number;
@@ -50,10 +75,13 @@ export interface AboutData {
   blocks?: unknown[];
 }
 
+const ABOUT_POPULATE =
+  'populate[0]=heroImage&populate[1]=details&populate[2]=blocks';
+
 export async function getAboutPage(): Promise<AboutData | null> {
   try {
     const json = await strapiFetch<AboutData>(
-      '/api/about?populate=heroImage,details,blocks'
+      `/api/about?${ABOUT_POPULATE}`
     );
     const data = json?.data ?? null;
     // Add id to details for React keys (Strapi component has no id)
@@ -71,6 +99,32 @@ export async function getAboutPage(): Promise<AboutData | null> {
   }
 }
 
+// --- Vault Story (single type, same shape as About) ---
+export type VaultStoryData = AboutData;
+
+const VAULT_STORY_POPULATE =
+  'populate[0]=heroImage&populate[1]=details&populate[2]=blocks';
+
+export async function getVaultStoryPage(): Promise<VaultStoryData | null> {
+  try {
+    const json = await strapiFetch<VaultStoryData>(
+      `/api/vault-story?${VAULT_STORY_POPULATE}`
+    );
+    const data = json?.data ?? null;
+    if (data?.details) {
+      data.details = data.details.map((d, i) => ({
+        id: i + 1,
+        heading: d?.heading ?? '',
+        body: d?.body ?? '',
+      })) as AboutDetailItem[];
+    }
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch vault story page from Strapi:', error);
+    return null;
+  }
+}
+
 // --- Global (single type) ---
 export interface GlobalData {
   documentId?: string;
@@ -84,10 +138,12 @@ export interface GlobalData {
   };
 }
 
+const GLOBAL_POPULATE = 'populate[0]=favicon&populate[1]=defaultSeo';
+
 export async function getGlobal(): Promise<GlobalData | null> {
   try {
     const json = await strapiFetch<GlobalData>(
-      '/api/global?populate=favicon,defaultSeo'
+      `/api/global?${GLOBAL_POPULATE}`
     );
     return json?.data ?? null;
   } catch (error) {
@@ -96,22 +152,205 @@ export async function getGlobal(): Promise<GlobalData | null> {
   }
 }
 
+// --- CEO Annual Letters (collection) ---
+export interface CeoAnnualLetterItem {
+  documentId: string;
+  name?: string;
+  designation?: string;
+  avatar?: { url: string; alternativeText?: string } | null;
+  image?: { url: string; alternativeText?: string } | null;
+  quote?: string;
+}
+
+export async function getCeoAnnualLetters(): Promise<CeoAnnualLetterItem[]> {
+  try {
+    const json = await strapiFetch<CeoAnnualLetterItem[] | CeoAnnualLetterItem>(
+      '/api/ceo-annual-letters?populate[0]=avatar&populate[1]=image'
+    );
+    const data = json?.data;
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch CEO annual letters from Strapi:', error);
+    return [];
+  }
+}
+
+// --- What We Do (single type) ---
+export interface WhatWeDoPoint {
+  text?: string;
+}
+
+export interface WhatWeDoItem {
+  title?: string;
+  item_title?: string;
+  description?: string;
+  points?: WhatWeDoPoint[];
+  link?: string;
+}
+
+export interface WhatWeDoData {
+  header?: string;
+  items?: WhatWeDoItem[];
+}
+
+const WHAT_WE_DO_POPULATE = 'populate[0]=items&populate[1]=items.points';
+
+export async function getWhatWeDo(): Promise<WhatWeDoData | null> {
+  try {
+    const json = await strapiFetch<WhatWeDoData>(
+      `/api/what-we-do?${WHAT_WE_DO_POPULATE}`
+    );
+    return json?.data ?? null;
+  } catch (error) {
+    console.error('Failed to fetch what we do from Strapi:', error);
+    return null;
+  }
+}
+
+// --- Our Story (single type) ---
+export interface OurStoryDetailItem {
+  text?: string;
+}
+
+export interface OurStoryItem {
+  title?: string;
+  image?: { url: string; alternativeText?: string } | null;
+  details?: OurStoryDetailItem[];
+}
+
+export interface OurStoryData {
+  header?: string;
+  items?: OurStoryItem[];
+}
+
+const OUR_STORY_POPULATE =
+  'populate[0]=items&populate[1]=items.image&populate[2]=items.details';
+
+export async function getOurStory(): Promise<OurStoryData | null> {
+  try {
+    const json = await strapiFetch<OurStoryData>(
+      `/api/our-story?${OUR_STORY_POPULATE}`
+    );
+    return json?.data ?? null;
+  } catch (error) {
+    console.error('Failed to fetch our story from Strapi:', error);
+    return null;
+  }
+}
+
+// --- Home About Us (single type) ---
+export interface HomeAboutUsTextLine {
+  text?: string;
+}
+
+export interface HomeAboutUsData {
+  documentId?: string;
+  title?: string;
+  text?: HomeAboutUsTextLine[];
+  buttonName?: string;
+  link?: string;
+}
+
+const HOME_ABOUT_US_POPULATE = 'populate[0]=text';
+
+export async function getHomeAboutUs(): Promise<HomeAboutUsData | null> {
+  try {
+    const json = await strapiFetch<HomeAboutUsData>(
+      `/api/home-about-us?${HOME_ABOUT_US_POPULATE}`
+    );
+    return json?.data ?? null;
+  } catch (error) {
+    console.error('Failed to fetch home about us from Strapi:', error);
+    return null;
+  }
+}
+
+// --- Home Partner With Us (single type) ---
+export interface HomePartnerWithUsItem {
+  icon?: { url: string; alternativeText?: string } | null;
+  title?: string;
+  subtitle?: string;
+}
+
+export interface HomePartnerWithUsData {
+  documentId?: string;
+  title?: string;
+  buttonName?: string;
+  link?: string;
+  items?: HomePartnerWithUsItem[];
+}
+
+const HOME_PARTNER_WITH_US_POPULATE = 'populate[0]=items&populate[1]=items.icon';
+
+export async function getHomePartnerWithUs(): Promise<HomePartnerWithUsData | null> {
+  try {
+    const json = await strapiFetch<HomePartnerWithUsData>(
+      `/api/home-partner-with-us?${HOME_PARTNER_WITH_US_POPULATE}`
+    );
+    return json?.data ?? null;
+  } catch (error) {
+    console.error('Failed to fetch home partner with us from Strapi:', error);
+    return null;
+  }
+}
+
+// --- Want To Know More (collection, keyed by path) ---
+export interface WantToKnowMoreEntry {
+  documentId?: string;
+  path?: string;
+  title?: string;
+  buttonName?: string;
+  link?: string;
+}
+
+export async function getWantToKnowMoreList(): Promise<WantToKnowMoreEntry[]> {
+  try {
+    const json = await strapiFetch<WantToKnowMoreEntry[] | WantToKnowMoreEntry>(
+      '/api/want-to-know-mores'
+    );
+    const data = json?.data;
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch want to know more list from Strapi:', error);
+    return [];
+  }
+}
+
+/** Find entry for pathname: exact path match, else longest path prefix match (e.g. /event matches /event/123). */
+export function findWantToKnowMoreForPath(
+  entries: WantToKnowMoreEntry[],
+  pathname: string
+): WantToKnowMoreEntry | null {
+  const normalized = pathname.replace(/\/$/, '') || '/';
+  const withPath = entries.filter((e) => e.path != null && e.path !== '');
+  const exact = withPath.find((e) => (e.path!.replace(/\/$/, '') || '/') === normalized);
+  if (exact) return exact;
+  const sorted = [...withPath].sort(
+    (a, b) => (b.path?.length ?? 0) - (a.path?.length ?? 0)
+  );
+  return (
+    sorted.find((e) => {
+      const p = e.path!.replace(/\/$/, '') || '/';
+      return normalized === p || (normalized.startsWith(p + '/') && p !== '/');
+    }) ?? null
+  );
+}
+
 // --- Blogs ---
 export interface BlogItem {
   documentId: string;
   title?: string;
-  description?: string;
+  description?: StrapiRichTextBlock[];
   slug?: string;
+  date?: string;
   publishedAt?: string;
-  cover?: { url: string; alternativeText?: string } | null;
-  author?: { documentId: string; name?: string } | null;
-  category?: { documentId: string; name?: string } | null;
+  bgImage?: { url: string; alternativeText?: string } | null;
 }
 
 export async function getBlogs(): Promise<BlogItem[]> {
   try {
     const json = await strapiFetch<BlogItem[] | BlogItem>(
-      '/api/blogs?populate=cover,author,category'
+      '/api/blogs?populate=bgImage'
     );
     const data = json?.data;
     return Array.isArray(data) ? data : [];
@@ -124,7 +363,7 @@ export async function getBlogs(): Promise<BlogItem[]> {
 export async function getBlogById(id: string): Promise<BlogItem | null> {
   try {
     const json = await strapiFetch<BlogItem>(
-      `/api/blogs/${id}?populate=cover,author,category`
+      `/api/blogs/${id}?populate=bgImage`
     );
     return json?.data ?? null;
   } catch (error) {
@@ -137,17 +376,17 @@ export async function getBlogById(id: string): Promise<BlogItem | null> {
 export interface NewsItem {
   documentId: string;
   title?: string;
-  description?: string;
+  description?: StrapiRichTextBlock[];
   slug?: string;
+  date?: string;
   publishedAt?: string;
-  cover?: { url: string; alternativeText?: string } | null;
-  author?: { documentId: string; name?: string } | null;
+  bgImage?: { url: string; alternativeText?: string } | null;
 }
 
 export async function getNews(): Promise<NewsItem[]> {
   try {
     const json = await strapiFetch<NewsItem[] | NewsItem>(
-      '/api/news?populate=cover,author'
+      '/api/news?populate=bgImage'
     );
     const data = json?.data;
     return Array.isArray(data) ? data : [];
@@ -160,12 +399,61 @@ export async function getNews(): Promise<NewsItem[]> {
 export async function getNewsById(id: string): Promise<NewsItem | null> {
   try {
     const json = await strapiFetch<NewsItem>(
-      `/api/news/${id}?populate=cover,author`
+      `/api/news/${id}?populate=bgImage`
     );
     return json?.data ?? null;
   } catch (error) {
     console.error('Failed to fetch news from Strapi:', error);
     return null;
+  }
+}
+
+// --- Teams ---
+export interface TeamItem {
+  documentId: string;
+  name?: string;
+  image?: { url: string; alternativeText?: string } | null;
+  description?: StrapiRichTextBlock[];
+  linkedin?: string;
+  email?: string;
+  phone?: string;
+  designation?: string;
+}
+
+export async function getTeams(): Promise<TeamItem[]> {
+  try {
+    const json = await strapiFetch<TeamItem[] | TeamItem>(
+      '/api/teams?populate=image'
+    );
+    const data = json?.data;
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch teams from Strapi:', error);
+    return [];
+  }
+}
+
+// --- Operating Partners ---
+export interface OperatingPartnerItem {
+  documentId: string;
+  name?: string;
+  image?: { url: string; alternativeText?: string } | null;
+  description?: StrapiRichTextBlock[];
+  linkedin?: string;
+  email?: string;
+  phone?: string;
+}
+
+export async function getOperatingPartners(): Promise<OperatingPartnerItem[]> {
+  try {
+    const json = await strapiFetch<OperatingPartnerItem[] | OperatingPartnerItem>(
+      '/api/operating-partners?populate=image'
+    );
+    const data = json?.data;
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch operating partners from Strapi:', error);
+    return [];
   }
 }
 

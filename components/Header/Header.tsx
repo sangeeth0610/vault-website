@@ -34,7 +34,7 @@ const menu = [
   {
     label: 'Vault People',
     submenu: [
-      { label: 'Vault Story', href: '#' },
+      { label: 'Vault Story', href: '/vault_story' },
       { label: 'Team', href: '#' },
       { label: 'Operating Partners', href: '#' },
     ],
@@ -90,8 +90,9 @@ const Header = () => {
 
   return (
     <header
-      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${scrolled ? ' vault-header-bg-white' : ''
-        } ${isHeaderVisible ? 'header-show' : 'header-hide'}`}
+      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${
+        scrolled ? ' vault-header-bg-white' : ''
+      } ${isHeaderVisible ? 'header-show' : 'header-hide'}`}
     >
       <div className="d-flex align-items-center justify-content-between w-100 gap-3">
         <Image src={scrolled ? blackLogo : logo} alt="Vault Logo" width={100} />

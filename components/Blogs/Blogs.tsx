@@ -3,12 +3,13 @@
 
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef } from 'react';
 import { GoArrowLeft, GoArrowRight, GoArrowUpRight } from 'react-icons/go';
 import ReusableButton from '../Buttons/ReusableButton/ReusableButton';
 
-export interface EventCarouselItem {
+export interface BlogCarouselItem {
   date: string;
   title: string;
   image: string;
@@ -16,22 +17,22 @@ export interface EventCarouselItem {
   id: string;
 }
 
-const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
+const DEFAULT_IMAGE =
+  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80';
+
+const Blogs = ({ blogs: blogsProp }: { blogs?: BlogCarouselItem[] }) => {
   const router = useRouter();
-  const eventsData = eventsProp && eventsProp.length > 0 ? eventsProp : [];
+  const blogsData = blogsProp && blogsProp.length > 0 ? blogsProp : [];
   const autoplay = useRef(
     Autoplay({
-      delay: 10000, // 10 seconds
-      stopOnInteraction: false, // keeps autoplay after manual scroll
-      stopOnMouseEnter: true, // pause when hover
+      delay: 10000,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
     })
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      align: 'start',
-      loop: true,
-    },
+    { align: 'start', loop: true },
     [autoplay.current]
   );
 
@@ -46,18 +47,17 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
   return (
     <div className="events-wrapper pt-4 pt-lg-5 position-relative d-flex flex-column gap-4">
       <div className="px-4 d-flex flex-column gap-4 py-0 pt-lg-4">
-        <div className="primary-text text-uppercase letter-spacing fw-semibold fs-15">events</div>
+        <div className="primary-text text-uppercase letter-spacing fw-semibold fs-15">
+          blogs
+        </div>
         <div className="d-flex align-items-center justify-content-between pb-4 flex-wrap">
-          <div className="font-libre fs-42  text-dark">The Right Conversations</div>
-          <div className=" d-flex align-items-center gap-3">
+          <div className="font-libre fs-42 text-dark">Blog</div>
+          <div className="d-flex align-items-center gap-3">
             <button
               onClick={scrollPrev}
               className="arrow-btn carousel-arrow-left d-none d-lg-block"
               aria-label="Previous"
-              style={{
-                background: 'transparent',
-                cursor: 'pointer',
-              }}
+              style={{ background: 'transparent', cursor: 'pointer' }}
             >
               <GoArrowLeft size={20} />
             </button>
@@ -65,10 +65,7 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
               onClick={scrollNext}
               className="arrow-btn carousel-arrow-right d-none d-lg-block"
               aria-label="Next"
-              style={{
-                background: 'transparent',
-                cursor: 'pointer',
-              }}
+              style={{ background: 'transparent', cursor: 'pointer' }}
             >
               <GoArrowRight size={20} />
             </button>
@@ -79,7 +76,7 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
                 className="border-0 bg-transparent text-dark p-0"
                 variant="outline"
                 style={{ maxWidth: 'max-content' }}
-                onClick={() => router.push('/events')}
+                onClick={() => router.push('/blog')}
               />
             </div>
           </div>
@@ -88,23 +85,21 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
       <div className="carousel-container d-flex flex-row px-4 pb-5 gap-4 align-items-center me-4">
         <div className="embla w-100" ref={emblaRef}>
           <div className="embla__container d-flex flex-row gap-4">
-            {eventsData.map((event: EventCarouselItem, index: number) => (
+            {blogsData.map((blog, index) => (
               <div
                 className="embla__slide"
-                key={index}
+                key={blog.id || index}
                 style={{ minWidth: 600, maxWidth: 660, flex: '0 0 340px' }}
               >
                 <div
                   className="carousel-card event-carousel-card position-relative d-flex flex-column overflow-hidden h-100 border-0"
-                  style={{
-                    transition: 'transform 0.2s',
-                  }}
+                  style={{ transition: 'transform 0.2s' }}
                 >
-                  <a
-                    href={`/event/${event.id}`}
+                  <Link
+                    href={`/blog/${blog.id}`}
                     className="carousel-image-link text-decoration-none"
                     style={{ color: 'inherit' }}
-                    aria-label={`Read article: ${event.title}`}
+                    aria-label={`Read blog: ${blog.title}`}
                   >
                     <div
                       className="carousel-image-wrap w-100 position-relative overflow-hidden bg-secondary"
@@ -112,8 +107,8 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
                     >
                       <img
                         className="carousel-image"
-                        src={event.image}
-                        alt={event.title}
+                        src={blog.image || DEFAULT_IMAGE}
+                        alt={blog.title}
                         style={{
                           objectFit: 'cover',
                           width: '100%',
@@ -127,11 +122,12 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
                         </span>
                       </div>
                     </div>
-                  </a>
-
+                  </Link>
                   <div className="py-3">
-                    {event.date && <div className="fs-13 fw-medium primary-text">{event.date}</div>}
-                    <div className="fs-16 fw-medium text-dark">{event.title}</div>
+                    {blog.date && (
+                      <div className="fs-13 fw-medium primary-text">{blog.date}</div>
+                    )}
+                    <div className="fs-16 fw-medium text-dark">{blog.title}</div>
                   </div>
                 </div>
               </div>
@@ -143,4 +139,4 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
   );
 };
 
-export default Events;
+export default Blogs;

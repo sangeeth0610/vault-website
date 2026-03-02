@@ -2,12 +2,12 @@ import Hero from '@/components/AboutUs/AboutUsComponents/Hero';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
-import { AboutDetailItem, getAboutPage, getStrapiMediaUrl } from '@/lib/strapi';
+import { AboutDetailItem, getAboutPage, getStrapiMediaUrl, getWantToKnowMoreList } from '@/lib/strapi';
 import Details from '../../components/AboutUs/AboutUsComponents/Details';
 import '../homePage.css';
 
 const AboutUsPage = async () => {
-  const aboutData = await getAboutPage();
+  const [aboutData, wantToKnowMoreList] = await Promise.all([getAboutPage(), getWantToKnowMoreList()]);
   const heroImageUrl = aboutData?.heroImage?.url ? getStrapiMediaUrl(aboutData.heroImage.url) : '';
   const detailsData: AboutDetailItem[] = (aboutData?.details ?? []) as AboutDetailItem[];
 
@@ -16,7 +16,7 @@ const AboutUsPage = async () => {
       <Header />
       <Hero heroImageUrl={heroImageUrl} title={aboutData?.title ?? ''} />
       <Details detailsData={detailsData} />
-      <WantToKnowMore />
+      <WantToKnowMore entries={wantToKnowMoreList ?? null} />
       <Footer />
     </main>
   );
