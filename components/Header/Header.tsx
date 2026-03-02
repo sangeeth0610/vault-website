@@ -25,18 +25,19 @@ const menu = [
   {
     label: 'What We Do',
     submenu: [
-      { label: 'Service menu', href: '#' },
-      { label: 'Work with Vaults', href: '#' },
-      { label: 'Career vaultnews', href: '#' },
+      { label: 'Investments', href: '#' },
+      { label: 'Wealth Services', href: '#' },
+      { label: 'PE Advisory', href: '#' },
       { label: 'Portfolio', href: '#' },
     ],
   },
   {
     label: 'Vault People',
+    href: '/vaultstory',
     submenu: [
-      { label: 'Vault Story', href: '#' },
-      { label: 'Team', href: '#' },
-      { label: 'Operating Partners', href: '#' },
+      { label: 'Vault Story', href: '/vaultstory' },
+      { label: 'Team', href: '/vaultstory' },
+      { label: 'Operating Partners', href: '/vaultstory' },
     ],
   },
   {

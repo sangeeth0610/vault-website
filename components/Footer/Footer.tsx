@@ -28,7 +28,7 @@ const siteMapMenu = [
   {
     label: 'Vault People',
     submenu: [
-      { label: 'Vault Story', href: '#' },
+      { label: 'Vault Story', href: '/vaultstory' },
       { label: 'Team', href: '#' },
       { label: 'Operating Partners', href: '#' },
     ],

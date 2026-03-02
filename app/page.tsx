@@ -9,8 +9,8 @@ import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
 import WhatWeDo from '@/components/WhatWeDo/WhatWeDo';
 import './homePage.css';
 import FoodForThought from '@/components/FoodForThought/FoodForThought';
-import VaultPeople from '@/components/VaultPeople/VaultPeople';
 import CeoAnnualLetters from '@/components/CeoAnnualLetters/CeoAnnualLetters';
+import VaultPeople from '@/components/Vault/VaultPeople/VaultPeople';
 export default function Home() {
   return (
     <main className="home-page position-relative">
