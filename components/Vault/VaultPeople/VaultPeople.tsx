@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
+import ReusableButton from "@/components/Buttons/ReusableButton/ReusableButton"
 import Autoplay from "embla-carousel-autoplay"
 import useEmblaCarousel from "embla-carousel-react"
 import { useCallback, useRef } from 'react'
 import { GoArrowLeft, GoArrowRight, GoArrowUpRight } from 'react-icons/go'
-import ReusableButton from '../Buttons/ReusableButton/ReusableButton'
 
 export interface TeamCarouselItem {
   id: string;

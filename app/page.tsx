@@ -1,7 +1,7 @@
 import AboutUs from '@/components/AboutUs/AboutUs';
 import type { BlogCarouselItem } from '@/components/Blogs/Blogs';
-import CeoAnnualLetters from '@/components/CeoAnnualLetters/CeoAnnualLetters';
 import type { CeoLetterSlide } from '@/components/CeoAnnualLetters/CeoAnnualLetters';
+import CeoAnnualLetters from '@/components/CeoAnnualLetters/CeoAnnualLetters';
 import Events from '@/components/Events/Events';
 import FoodForThought from '@/components/FoodForThought/FoodForThought';
 import Footer from '@/components/Footer/Footer';
@@ -9,13 +9,12 @@ import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
 import OurStory from '@/components/OurStory/OurStory';
 import PartnerWithUs from '@/components/PartnerWithUs/PartnerWithUs';
-import type { TeamCarouselItem } from '@/components/VaultPeople/VaultPeople';
-import VaultPeople from '@/components/VaultPeople/VaultPeople';
+import type { TeamCarouselItem } from '@/components/Vault/VaultPeople/VaultPeople';
+import VaultPeople from '@/components/Vault/VaultPeople/VaultPeople';
 import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
 import WhatWeDo from '@/components/WhatWeDo/WhatWeDo';
 import {
   BlogItem,
-  type CeoAnnualLetterItem,
   EventItem,
   getBlogs,
   getCeoAnnualLetters,
@@ -27,6 +26,7 @@ import {
   getTeams,
   getWantToKnowMoreList,
   getWhatWeDo,
+  type CeoAnnualLetterItem,
 } from '@/lib/strapi';
 import './homePage.css';
 
@@ -135,18 +135,27 @@ function formatCeoLetter(letter: CeoAnnualLetterItem): CeoLetterSlide {
 // }
 
 export default async function Home() {
-  const [events, blogs, teams, ceoLetters, whatWeDo, ourStory, homeAboutUs, homePartnerWithUs, wantToKnowMoreList] =
-    await Promise.all([
-      getEvents(),
-      getBlogs(),
-      getTeams(),
-      getCeoAnnualLetters(),
-      getWhatWeDo(),
-      getOurStory(),
-      getHomeAboutUs(),
-      getHomePartnerWithUs(),
-      getWantToKnowMoreList(),
-    ]);
+  const [
+    events,
+    blogs,
+    teams,
+    ceoLetters,
+    whatWeDo,
+    ourStory,
+    homeAboutUs,
+    homePartnerWithUs,
+    wantToKnowMoreList,
+  ] = await Promise.all([
+    getEvents(),
+    getBlogs(),
+    getTeams(),
+    getCeoAnnualLetters(),
+    getWhatWeDo(),
+    getOurStory(),
+    getHomeAboutUs(),
+    getHomePartnerWithUs(),
+    getWantToKnowMoreList(),
+  ]);
 
   const eventsForCarousel: EventCarouselItem[] = (Array.isArray(events) ? events : []).map(
     formatEvent
