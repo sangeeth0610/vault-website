@@ -5,7 +5,7 @@ import { useScroll } from '@/context/ScrollProvider';
 import logo from '@/public/assests/Logo 3  1.png';
 import blackLogo from '@/public/assests/Logoblack.png';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GoArrowUpRight } from 'react-icons/go';
 import { IoMdClose } from 'react-icons/io';
 import { MdKeyboardArrowRight } from 'react-icons/md';
@@ -64,20 +64,29 @@ const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarSubmenuOpen, setSidebarSubmenuOpen] = useState<number | null>(null);
 
-  // Sidebar close handler for escape key and overlay clicks
   const handleSidebarClose = () => {
     setSidebarOpen(false);
     setSidebarSubmenuOpen(null);
   };
 
-  // Prevent scrolling when sidebar is open
-  if (typeof window !== 'undefined') {
-    if (sidebarOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+  // if (typeof window !== 'undefined') {
+  //   if (sidebarOpen) {
+  //     document.body.style.overflow = 'hidden';
+  //   } else {
+  //     document.body.style.overflow = '';
+  //   }
+  // }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.body.style.overflow = sidebarOpen ? 'hidden' : '';
     }
-  }
+    return () => {
+      if (typeof window !== 'undefined') {
+        document.body.style.overflow = '';
+      }
+    };
+  }, [sidebarOpen]);
 
   return (
     <header

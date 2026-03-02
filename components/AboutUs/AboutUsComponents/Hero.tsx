@@ -1,13 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import homeBg from '@/public/assests/aboutus.jpg';
-import Image from 'next/image';
+interface HeroProps {
+  heroImageUrl: string;
+  title: string;
+}
 
-const Hero = () => {
+const Hero = ({ heroImageUrl, title }: HeroProps) => {
   return (
     <section className="hero-wrapper position-relative" style={{ height: '100vh' }}>
       <div className="img-background">
-        <Image src={homeBg} alt="homeBg" />
+        <img
+          src={heroImageUrl}
+          alt="About Us"
+          className="object-cover"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          sizes="100vw"
+        />
         <div className="img-overlay"></div>
       </div>
       <div className="vault-marquee">
@@ -22,7 +31,7 @@ const Hero = () => {
       </div>
 
       <div className="hero-section h-100 d-flex justify-content-center gap-5 flex-column px-4">
-        <div className=" text-white hero-text">About Us</div>
+        <div className=" text-white hero-text">{title}</div>
       </div>
     </section>
   );

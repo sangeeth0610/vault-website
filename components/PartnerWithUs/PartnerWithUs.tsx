@@ -40,8 +40,7 @@ const partnerData = [
 export default function PartnerWithUs() {
   const leftRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLDivElement[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  console.info(activeIndex);
+  const [, setActiveIndex] = useState(0);
 
   useLayoutEffect(() => {
     if (!leftRef.current) return;

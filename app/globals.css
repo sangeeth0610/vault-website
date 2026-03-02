@@ -40,6 +40,7 @@
   --fs32: 32px;
   --fs26: 26px;
   --fs24: 24px;
+  --fs35: 35px;
   --fs20: 20px;
   --fs18: 18px;
   --fs16: 16px;
@@ -139,6 +140,11 @@ a, button, input, textarea {
 .fs-24 {
   font-size: var(--fs24);
 }
+
+.fs-35 {
+  font-size: var(--fs35);
+}
+
 .fs-42 {
   font-size: var(--fs42);
 }
