@@ -58,7 +58,7 @@ const menu = [
 
 const Header = () => {
   const { layoutMode } = useDevice();
-  const { scrolled } = useScroll();
+  const { scrolled, isHeaderVisible } = useScroll();
   const isCompact = layoutMode === 'compact';
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -81,9 +81,8 @@ const Header = () => {
 
   return (
     <header
-      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${
-        scrolled ? ' vault-header-bg-white' : ''
-      }`}
+      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${scrolled ? ' vault-header-bg-white' : ''
+        } ${isHeaderVisible ? 'header-show' : 'header-hide'}`}
     >
       <div className="d-flex align-items-center justify-content-between w-100 gap-3">
         <Image src={scrolled ? blackLogo : logo} alt="Vault Logo" width={100} />
