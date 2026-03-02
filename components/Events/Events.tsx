@@ -83,7 +83,7 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
           </div>
         </div>
       </div>
-      <div className="carousel-container d-flex flex-row px-4 py-5 gap-4 align-items-center me-4">
+      <div className="carousel-container d-flex flex-row px-4 pb-5 gap-4 align-items-center me-4">
         <div className="embla w-100" ref={emblaRef}>
           <div className="embla__container d-flex flex-row gap-4">
             {eventsData.map((event: EventCarouselItem, index: number) => (
@@ -93,23 +93,23 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
                 style={{ minWidth: 600, maxWidth: 660, flex: '0 0 340px' }}
               >
                 <div
-                  className="card event-carousel-card position-relative d-flex flex-column overflow-hidden h-100 border-0"
+                  className="carousel-card event-carousel-card position-relative d-flex flex-column overflow-hidden h-100 border-0"
                   style={{
                     transition: 'transform 0.2s',
                   }}
                 >
                   <a
-                    href={`/event/${event?.id ?? ''}`}
-                    className="event-image-link text-decoration-none"
+                    href={event.id}
+                    className="carousel-image-link text-decoration-none"
                     style={{ color: 'inherit' }}
                     aria-label={`Read article: ${event.title}`}
                   >
                     <div
-                      className="event-image-wrap w-100 position-relative overflow-hidden bg-secondary"
+                      className="carousel-image-wrap w-100 position-relative overflow-hidden bg-secondary"
                       style={{ height: 390 }}
                     >
                       <img
-                        className="event-image"
+                        className="carousel-image"
                         src={event.image}
                         alt={event.title}
                         style={{
@@ -118,8 +118,8 @@ const Events = ({ events: eventsProp }: { events?: EventCarouselItem[] }) => {
                           height: '100%',
                         }}
                       />
-                      <div className="event-read-article fw-light letter-spacing text-white fs-13 text-uppercase d-flex justify-content-center align-items-center gap-2 w-100 h-100">
-                        READ ARTICLE{' '}
+                      <div className="read-article fw-light letter-spacing text-white fs-13 text-uppercase d-flex justify-content-center align-items-center gap-2 w-100 h-100">
+                        {'READ ARTICLE'}{' '}
                         <span>
                           <GoArrowUpRight size={20} />
                         </span>

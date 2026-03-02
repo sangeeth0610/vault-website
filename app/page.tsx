@@ -1,10 +1,13 @@
 import AboutUs from '@/components/AboutUs/AboutUs';
+import CeoAnnualLetters from '@/components/CeoAnnualLetters/CeoAnnualLetters';
 import Events from '@/components/Events/Events';
+import FoodForThought from '@/components/FoodForThought/FoodForThought';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
 import OurStory from '@/components/OurStory/OurStory';
 import PartnerWithUs from '@/components/PartnerWithUs/PartnerWithUs';
+import VaultPeople from '@/components/VaultPeople/VaultPeople';
 import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
 import WhatWeDo from '@/components/WhatWeDo/WhatWeDo';
 import { EventItem, getEvents, getStrapiMediaUrl } from '@/lib/strapi';
@@ -54,6 +57,9 @@ export default async function Home() {
       <OurStory />
       <WhatWeDo />
       <Events events={eventsForCarousel} />
+      <VaultPeople />
+      <CeoAnnualLetters />
+      <FoodForThought />
       <PartnerWithUs />
       <WantToKnowMore />
       <Footer />

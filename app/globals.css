@@ -156,6 +156,9 @@ a, button, input, textarea {
 .primary-text{
   color: var(--primary-blue);
 }
+.primary-bg{
+  background-color: var(--primary);
+}
 
 .font-libre{
   font-family:  var(--font-libre-baskerville);
@@ -211,4 +214,81 @@ a, button, input, textarea {
 
 .reveal-section {
   will-change: transform, opacity;
+}
+
+/* --------------------------------- carousel css --------------------------------- */
+
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.embla {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  gap: 24px;
+}
+
+/* .embla__slide {
+  flex: 0 0 350px;
+} */
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.content {
+  padding: 16px;
+}
+.arrow-btn {
+  padding: 4px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--dark) !important;
+}
+
+.Read-article {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-image-link {
+  display: block;
+}
+
+.carousel-image-wrap .read-article {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.carousel-image-wrap:hover .read-article,
+.carousel-image-link:focus-visible .read-article,
+.carousel-image-link:focus-within .read-article {
+  opacity: 1;
+}
+
+.carousel-image {
+  transition: transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.carousel-image-wrap:hover .carousel-image {
+  transform: scale(1.08);
 }
