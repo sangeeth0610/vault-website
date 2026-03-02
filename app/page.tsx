@@ -8,6 +8,7 @@ import PartnerWithUs from '@/components/PartnerWithUs/PartnerWithUs';
 import WantToKnowMore from '@/components/WantToKnowMore/WantToKnowMore';
 import WhatWeDo from '@/components/WhatWeDo/WhatWeDo';
 import './homePage.css';
+import FoodForThought from '@/components/FoodForThought/FoodForThought';
 export default function Home() {
   return (
     <main className="home-page position-relative">
@@ -17,6 +18,7 @@ export default function Home() {
       <OurStory />
       <WhatWeDo />
       <Events />
+      <FoodForThought />
       <PartnerWithUs />
       <WantToKnowMore />
       <Footer />
