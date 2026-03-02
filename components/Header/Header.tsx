@@ -5,6 +5,7 @@ import { useScroll } from '@/context/ScrollProvider';
 import logo from '@/public/assests/Logo 3  1.png';
 import blackLogo from '@/public/assests/Logoblack.png';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GoArrowUpRight } from 'react-icons/go';
 import { IoMdClose } from 'react-icons/io';
@@ -65,6 +66,14 @@ const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarSubmenuOpen, setSidebarSubmenuOpen] = useState<number | null>(null);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isNoWhiteHeader =
+    pathname === '/contact' ||
+    pathname === '/news' ||
+    pathname.startsWith('/news/');
+
   // Sidebar close handler for escape key and overlay clicks
   const handleSidebarClose = () => {
     setSidebarOpen(false);
@@ -82,11 +91,11 @@ const Header = () => {
 
   return (
     <header
-      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${scrolled ? ' vault-header-bg-white' : ''
+      className={`vault-header px-4 py-3 d-flex align-items-center justify-content-between${scrolled || isNoWhiteHeader ? ' vault-header-bg-white' : ''
         } ${isHeaderVisible ? 'header-show' : 'header-hide'}`}
     >
       <div className="d-flex align-items-center justify-content-between w-100 gap-3">
-        <Image src={scrolled ? blackLogo : logo} alt="Vault Logo" width={100} />
+        <Image src={scrolled || isNoWhiteHeader ? blackLogo : logo} alt="Vault Logo" width={100} />
         {isCompact ? (
           <>
             <button
@@ -95,7 +104,7 @@ const Header = () => {
               onClick={() => setSidebarOpen(true)}
               aria-label="Open menu"
             >
-              <RiMenu3Fill size={24} color={scrolled ? '#000' : '#fff'} />
+              <RiMenu3Fill size={24} color={scrolled || isNoWhiteHeader ? '#000' : '#fff'} />
             </button>
             <aside
               className={`vault-sidebar${sidebarOpen ? ' open' : ''}`}
@@ -186,13 +195,17 @@ const Header = () => {
               </nav>
               <div className="px-4 mb-4">
                 <a
-                  href="#"
+                  href="/contact"
                   className="fw-semibold fs-14 align-items-center letter-spacing"
                   style={{
                     textDecoration: 'none',
                     color: '#000',
                   }}
-                  onClick={handleSidebarClose}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSidebarClose();
+                    router.push('/contact');
+                  }}
                 >
                   Contact
                   <span className="ms-2">
@@ -210,7 +223,7 @@ const Header = () => {
                   !item.submenu ? (
                     <li className="nav-item" key={item.label}>
                       <a
-                        className={`nav-link${scrolled ? ' text-dark' : ' text-white'}`}
+                        className={`nav-link${scrolled || isNoWhiteHeader ? ' text-dark' : ' text-white'}`}
                         href={item.href}
                       >
                         {item.label}
@@ -224,7 +237,7 @@ const Header = () => {
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
                       <a
-                        className={`nav-link${scrolled ? ' text-dark' : ' text-white'}`}
+                        className={`nav-link${scrolled || isNoWhiteHeader ? ' text-dark' : ' text-white'}`}
                         href="#"
                         onClick={(e) => e.preventDefault()}
                         style={{ cursor: 'pointer' }}
@@ -248,8 +261,9 @@ const Header = () => {
             <div>
               <BorderButton
                 text="Contact"
-                style={scrolled ? { color: '#000' } : { color: '#fff' }}
+                style={scrolled || isNoWhiteHeader ? { color: '#000' } : { color: '#fff' }}
                 sufixIconChildren={<GoArrowUpRight size={26} />}
+                onClick={() => router.push('/contact')}
               />
             </div>
           </>
